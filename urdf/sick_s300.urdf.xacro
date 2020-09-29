@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_s300" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
+  <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' sensor_name:='lidar2D' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -90,6 +90,8 @@
 				</noise>
 			</ray>
 			<plugin name="${prefix}_controller" filename="${plugin_lib}">
+
+				<sensor_name>${sensor_name}</sensor_name>
 				<topicName>${prefix_topic}/scan</topicName>
 				<frameName>/${prefix}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
 			</plugin>
